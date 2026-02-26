@@ -29,4 +29,4 @@ library(devtools)
 install_github("ducciorocchini/imageRy")
 
 library(imageRy)
-
+im.list()

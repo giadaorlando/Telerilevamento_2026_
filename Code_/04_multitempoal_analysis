@@ -1,9 +1,11 @@
 #code for multitemporal analysis with satellite imagery
-
+install.packages("ggridges")
 library(terra)
 library(imageRy)
-im.list()
 library(viridis)
+library(ggplot2)
+library(ggridges)
+im.list()
 
 EN_01 <- im.import("EN_01.png")
 EN_01 <- flip(EN_01)
@@ -44,5 +46,49 @@ plot(gr[[4]], col=plasma(100))
 dif <- gr[[1]] - gr[[4]]
 plot(dif)
 
+
 #rgb 
 im.plotRGB(gr, r=1, g=2, b=4)
+
+
+#NDVI datandvi
+ndvi <- im.import("Sentinel2_NDVI_2020")
+ndvi #nrpixel = 528*555
+plot(ndvi, col=magma(100))
+
+hist(ndvi) #istogramma delle 4 mappe
+
+#ridgline plot
+im.ridgeline(ndvi, scale=1, palette="viridis") #se il nome della variabile è lo stesso sovrascrive le 4 immaginoi una sopra l'altra, bisogna allora cambiare nomi
+names(ndvi) <- c("02_feb", "05_may", "08_aug", "11_nov")
+im.ridgeline(ndvi, scale=1, palette="viridis")
+
+im.ridgeline(ndvi, scale=2, palette="mako") #si sovrappongono i grafici 
+
+pairs(ndvi)
+
+plot(ndvi[[1]], ndvi[[2]]) #come si comportano i pixel di febbaio rispetto a quelli di maggio
+
+# y= ax + b   y= 0 + 1x
+# insert the line y0=x
+abline(0,1) #non è a 45 gradi perchè i range delle variabili sono diversi, bisogna cambiarli
+plot(ndvi[[1]], ndvi[[2]], xlim=c(-0.3, 0.9), ylim=c(-0.3, 0.9))
+abline(0,1, col="red")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

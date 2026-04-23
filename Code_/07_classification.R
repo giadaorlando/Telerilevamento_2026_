@@ -3,7 +3,7 @@
 library(terra)
 library(imageRy)
 library(ggplot2)
-
+library(patchwork)
 
 
 im.list()
@@ -59,8 +59,34 @@ perc2006<- prop2006*100
 perc2006
 
 #tabella
-data.frame(
+tabout<- data.frame(
   class=c("Forest", "Human"),
   perc1992=c(83,17),
   perc2006=c(45,55) 
 )
+tabout
+
+ggplot(tabout, aes(x=class, y=perc1992, color=class)) + 
+      geom_bar(stat="identity", fill="white")
+ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+      geom_bar(stat="identity", fill="white")
+
+#uso patchwork
+p1<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + 
+      geom_bar(stat="identity", fill="white")
+p2<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+      geom_bar(stat="identity", fill="white")
+p1+p2 #le y sono diverse
+
+p1<-ggplot(tabout, aes(x=class, y=perc1992, color=class)) + 
+      geom_bar(stat="identity", fill="white") + #bar plot
+ylim(c(0,100)) + #limiti
+theme(legend.position="none") #per rimuovere la legenda, theme_minimal() per lo sfondo bianco e non grigio
+
+p2<-ggplot(tabout, aes(x=class, y=perc2006, color=class)) + 
+      geom_bar(stat="identity", fill="white") +
+ylim(c(0,100))
+p1+p2 
+
+
+

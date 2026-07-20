@@ -310,6 +310,7 @@ make_stats <- function(raster, year, variable) {
 | Kd490 (m⁻¹) | 2012 | 645 | 0.0734 | 0.0569 | 0.0399 | 0.0333 | 0.2516 |
 | Kd490 (m⁻¹) | 2024 | 645 | 0.0811 | 0.0563 | 0.0534 | 0.0343 | 0.2937 |
 
+
 > [!IMPORTANT]
 > Il numero di celle è diverso tra gli indicatori perché i prodotti satellitari hanno risoluzioni differenti. Per la chlorophyll-a cambia anche tra gli anni a causa della diversa disponibilità di celle valide.
 
@@ -483,7 +484,7 @@ Chlorophyll-a e Kd490 mostrano entrambi un aumento della media rispetto al 2000.
 
 ## 12. Conclusioni 🌊
 
-Il progetto ha sviluppato un workflow riproducibile in R per analizzare l'evoluzione temporale di indicatori ambientali satellitari all'interno del Florida Keys National Marine Sanctuary.
+Il progetto ha sviluppato un workflow riproducibile in R per analizzare l'evoluzione temporale di indicatori ambientali satellitari in questo caso all'interno del Florida Keys National Marine Sanctuary che è stato scelto come caso studio.
 
 Il confronto tra 2000, 2012 e 2024 ha mostrato un aumento della SST nel 2024 e un incremento delle medie di chlorophyll-a e Kd490 rispetto al 2000. Per questi ultimi due indicatori, la divergenza tra media e mediana evidenzia che i cambiamenti sono probabilmente eterogenei e concentrati in alcune aree.
 

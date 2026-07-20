@@ -17,9 +17,9 @@ Il **Florida Keys National Marine Sanctuary (FKNMS)** è un'area marina protetta
 
 Il monitoraggio delle condizioni ambientali è particolarmente importante in questa regione, poiché gli ecosistemi costieri e corallini possono essere influenzati dall'aumento della temperatura marina, dalle variazioni della produttività fitoplanctonica e dalla riduzione della trasparenza dell'acqua. Quest'area è stata scelta in particolare per la grande disponibilità di dasaet ambientali risalenti a prima dell'inizio dell'effettiva attuazione delle pratiche di conservazione nell'area nel 1997 rendendo quest'area un caso di studio ideale per testare flussi di lavoro riproducibili basati sul telerilevamento satellitare.
 
-<img width="3325" height="1738" alt="water-13-03423-g001" src="https://github.com/user-attachments/files/30168903/imageRGB.pdf" />
+<img width="3325" height="1738" alt="imageRGB" src="https://github.com/user-attachments/assets/7748c040-9714-45c6-af93-1f170869f8da" />
 
-> Localizzazione del Florida Keys National Marine Sanctuary.
+> Immagine satellitare del Florida Keys National Marine Sanctuary scaricata tramite Google Earth Engine.
 
 ---
 
@@ -226,7 +226,7 @@ p_sst_2024 <- plot_indicator(
 )
 ```
 
-<!-- INSERIRE QUI LE TRE MAPPE SST 2000, 2012 E 2024 -->
+<img width="1280" height="709" alt="p_sst_all" src="https://github.com/user-attachments/assets/5c528e65-71d6-446f-a9b1-f44eb0ab7ddb" />
 
 > Distribuzione spaziale della SST nel 2000, 2012 e 2024. La stessa scala cromatica è utilizzata per tutti gli anni.
 
@@ -249,8 +249,7 @@ p_chl_2000 <- plot_indicator(
   limits = chl_limits
 )
 ```
-
-<!-- INSERIRE QUI LE TRE MAPPE CHLOROPHYLL-A 2000, 2012 E 2024 -->
+<img width="1280" height="709" alt="p_chl_all" src="https://github.com/user-attachments/assets/18f18f76-7c18-4d6e-9f32-ce0f989a480b" />
 
 > Distribuzione spaziale della chlorophyll-a nel 2000, 2012 e 2024.
 
@@ -272,7 +271,8 @@ p_kd490_2000 <- plot_indicator(
 )
 ```
 
-<!-- INSERIRE QUI LE TRE MAPPE KD490 2000, 2012 E 2024 -->
+<img width="1280" height="709" alt="p_kd490_all" src="https://github.com/user-attachments/assets/38ea7b47-8a90-4607-b05f-76ef8d739780" />
+
 
 > Distribuzione spaziale del coefficiente Kd490 nel 2000, 2012 e 2024. Valori maggiori indicano una più forte attenuazione della luce nella colonna d'acqua.
 
@@ -335,7 +335,12 @@ p_sst_boxplot <- plot_boxplot(
 
 La procedura è stata ripetuta per chlorophyll-a e Kd490.
 
-<!-- INSERIRE QUI I TRE BOXPLOT -->
+<p align="center">
+<img width="566" height="350" alt="p_sst_boxplot" src="https://github.com/user-attachments/assets/14b4b6e5-889f-4568-ab2a-b22f2aba55c0" />
+<p align="center">
+<img width="566" height="350" alt="p_chl_boxplot" src="https://github.com/user-attachments/assets/22d0924f-fb06-479f-9d57-243b1574afa8" />
+<p align="center">
+<img width="566" height="350" alt="p_kd490_boxplot" src="https://github.com/user-attachments/assets/7068274b-5259-4d52-a62a-2a25e28280ae" />
 
 > Confronto della distribuzione di SST, chlorophyll-a e Kd490 nei tre anni selezionati.
 
@@ -375,7 +380,12 @@ p_sst_change <- plot_change(
 
 Lo stesso procedimento è stato applicato a chlorophyll-a e Kd490.
 
-<!-- INSERIRE QUI LE TRE MAPPE DELLE DIFFERENZE 2024–2000 -->
+<p align="center">
+<img width="566" height="350" alt="p_sst_change" src="https://github.com/user-attachments/assets/6ba07a96-a29c-42c0-87ae-a33c6700599a" />
+<p align="center">
+<img width="566" height="350" alt="p_kd490_change" src="https://github.com/user-attachments/assets/3aa75cb8-f8b2-4b85-b705-ef9ed821d2a1" />
+<p align="center">
+<img width="566" height="350" alt="p_chl_change" src="https://github.com/user-attachments/assets/6585a755-8a3f-4195-bded-bfc12cabe1bc" />
 
 > Variazione spaziale di SST, chlorophyll-a e Kd490 tra il 2000 e il 2024. Valori positivi indicano un aumento, mentre valori negativi indicano una diminuzione.
 
@@ -419,7 +429,12 @@ p_mean_sst <- ggplot(
 
 La stessa procedura è stata applicata a chlorophyll-a e Kd490.
 
-<!-- INSERIRE QUI I TRE GRAFICI DELLE MEDIE -->
+<p align="center">
+<img width="566" height="350" alt="sst_percent_change" src="https://github.com/user-attachments/assets/c8a428b0-48d3-4572-a1f2-d6b903f14444" />
+<p align="center">
+<img width="566" height="350" alt="chl_percent_change" src="https://github.com/user-attachments/assets/dc9c3b1b-c52f-4c4b-813d-3344d1957dd9" />
+<p align="center">
+<img width="566" height="350" alt="kd490_percent_change" src="https://github.com/user-attachments/assets/f17a3163-f7be-426b-819f-03816eec52d2" />
 
 > Medie di SST, chlorophyll-a e Kd490 negli anni 2000, 2012 e 2024.
 

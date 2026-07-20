@@ -80,6 +80,7 @@ library(MPAnalysisR)
 library(terra)
 library(sf)
 library(ggplot2)
+library(patchwork)
 ```
 
 ---

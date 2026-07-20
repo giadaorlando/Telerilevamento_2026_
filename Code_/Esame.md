@@ -88,12 +88,41 @@ library(ggplot2)
 
 ### 4.1. Acquisizione dei dati
 
-I raster annuali di **SST** e **chlorophyll-a** sono stati ottenuti da prodotti satellitari disponibili tramite **Google Earth Engine**. I dati ocean-colour permettono di studiare la biologia e l'idrologia delle aree costiere e di analizzare la variabilità degli ecosistemi marini ([Earth Engine Data Catalog](https://developers.google.com/earth-engine/datasets/catalog/NASA_OCEANDATA_MODIS-Terra_L3SMI)).
+I raster annuali di **SST** e **chlorophyll-a** sono stati ottenuti da prodotti satellitari disponibili tramite **Google Earth Engine**. I dati di **Kd490** sono stati scaricati in formato NetCDF con dodici livelli mensili per ciascun anno. I livelli mensili sono stati mediati per ottenere un singolo raster annuale.
 
-I dati di **Kd490** sono stati scaricati in formato NetCDF con dodici livelli mensili per ciascun anno. I livelli mensili sono stati mediati per ottenere un singolo raster annuale.
+#### Sea Surface Temperature (SST)
 
-> [!NOTE]
-> Prima della consegna inserire qui il nome esatto, il sensore, la risoluzione spaziale e il link di ciascun prodotto utilizzato. Queste informazioni sono necessarie per rendere il workflow completamente riproducibile.
+La temperatura superficiale del mare è stata ottenuta dal prodotto **NOAA Optimum Interpolation Sea Surface Temperature (OISST), Version 2.1**, distribuito dal **NOAA Physical Sciences Laboratory**, accessibile tramite Google Earth Engine.
+
+OISST combina osservazioni satellitari, principalmente provenienti dal sensore **AVHRR**, con misurazioni in situ raccolte da boe e navi.
+
+- **Risoluzione spaziale:** 0,25° (circa 25 km);
+- **risoluzione temporale originale:** giornaliera;
+- **elaborazione utilizzata:** media annuale.
+
+#### Chlorophyll-a
+
+La concentrazione superficiale di chlorophyll-a è stata ottenuta dal prodotto **Copernicus Marine Satellite Ocean Color V6**, distribuito dal **Copernicus Marine Service** e scaricato tramite Google Earth Engine.
+
+È un prodotto multi-sensore che combina osservazioni provenienti da **SeaWiFS, MERIS, MODIS Aqua, VIIRS e OLCI**.
+
+- **Banda utilizzata:** `chlor_a`;
+- **risoluzione spaziale:** 4 km;
+- **risoluzione temporale originale:** giornaliera;
+- **elaborazione utilizzata:** media annuale delle immagini giornaliere.
+
+#### Kd490
+
+Il coefficiente di attenuazione diffusa della luce a 490 nm (**Kd490**) è stato ottenuto da un prodotto ocean-colour multi-sensore distribuito dal **Copernicus Marine Service**.
+Kd490 è espresso in **m⁻¹** e descrive la velocità con cui la luce viene attenuata nella colonna d’acqua. Valori maggiori indicano una maggiore attenuazione della luce e, generalmente, una minore trasparenza dell’acqua.
+
+- **Variabile utilizzata:** `KD490`;
+- **sensori:** la composizione varia in funzione dell’anno e comprende prodotti elaborati da MODIS, VIIRS e OLCI;
+- **risoluzione spaziale:** 4 km;
+- **risoluzione temporale scaricata:** mensile;
+- **elaborazione utilizzata:** media annuale dei 12 raster mensili.
+
+Per tutti gli indicatori sono stati analizzati gli anni **2000, 2012 e 2024**.
 
 Il confine del santuario è stato importato da uno shapefile del Florida Keys National Marine Sanctuary.
 
@@ -125,9 +154,6 @@ kd490_2000 <- mean(kd490_2000_monthly, na.rm = TRUE)
 kd490_2012 <- mean(kd490_2012_monthly, na.rm = TRUE)
 kd490_2024 <- mean(kd490_2024_monthly, na.rm = TRUE)
 
-names(kd490_2000) <- "Kd490_2000"
-names(kd490_2012) <- "Kd490_2012"
-names(kd490_2024) <- "Kd490_2024"
 ```
 
 ### 4.4. Uniformazione del sistema di riferimento

@@ -69,7 +69,7 @@ Importazione → Pre-processing spaziale → Statistiche → Confronto temporale
 Il pacchetto può essere installato direttamente da GitHub tramite R:
 
 ```r
-install.packages("remotes")
+install.packages("remotes") # permette di installare pacchetti R da sorgenti diverse da CRAN
 remotes::install_github("giadaorlando/MPAnalysisR")
 ```
 
@@ -201,14 +201,14 @@ sst_limits <- range(
   terra::minmax(sst_2000_crop),
   terra::minmax(sst_2012_crop),
   terra::minmax(sst_2024_crop),
-  na.rm = TRUE
-)
+  na.rm = TRUE 
+) # serve affinché tutte le mappe usino la stessa scala di colori
 
 p_sst_2000 <- plot_indicator(
   sst_2000_crop, boundary,
   title = "2000",
   legend_title = "SST (°C)",
-  limits = sst_limits
+  limits = sst_limits 
 )
 
 p_sst_2012 <- plot_indicator(
@@ -224,6 +224,26 @@ p_sst_2024 <- plot_indicator(
   legend_title = "SST (°C)",
   limits = sst_limits
 )
+
+p_sst_all <- wrap_plots(
+  p_sst_2000,
+  p_sst_2012,
+  p_sst_2024,
+  ncol = 3,
+  guides = "collect" # unisce le legende
+) +
+  plot_annotation(
+    title = "Spatial distribution of SST"
+  ) & # applica il tema a tutti i grafici della composizione
+  theme(
+    legend.position = "right",
+    plot.title = element_text(
+      hjust = 0.5, # centra il titolo
+      face = "bold" # lo fa in grassetto
+    )
+  )
+
+p_sst_all
 ```
 
 <img width="1280" height="709" alt="p_sst_all" src="https://github.com/user-attachments/assets/5c528e65-71d6-446f-a9b1-f44eb0ab7ddb" />
@@ -233,6 +253,9 @@ p_sst_2024 <- plot_indicator(
 ### 5.2. Chlorophyll-a
 
 La stessa procedura è stata applicata alla chlorophyll-a:
+
+<details>
+<summary><b>Mostra il codice R</b></summary>
 
 ```r
 chl_limits <- range(
@@ -248,13 +271,54 @@ p_chl_2000 <- plot_indicator(
   legend_title = "Chlorophyll-a (mg/m³)",
   limits = chl_limits
 )
+
+p_chl_2012 <- plot_indicator(
+  chl_2012_crop,
+  boundary,
+  title = "2012",
+  legend_title = "Chlorophyll-a (mg/m³)",
+  limits = chl_limits
+)
+
+p_chl_2024 <- plot_indicator(
+  chl_2024_crop,
+  boundary,
+  title = "2024",
+  legend_title = "Chlorophyll-a (mg/m³)",
+  limits = chl_limits
+)
+
+p_chl_all <- wrap_plots(
+  p_chl_2000,
+  p_chl_2012,
+  p_chl_2024,
+  ncol = 3,
+  guides = "collect"
+)+
+  plot_annotation(
+    title = "Spatial distribution of Chlorophyll-a"
+  ) &
+  theme(
+    legend.position = "right",
+    plot.title = element_text(
+      hjust = 0.5,
+      face = "bold"
+    )
+  )
+p_chl_all
+
 ```
+</details>
+
 <img width="1280" height="709" alt="p_chl_all" src="https://github.com/user-attachments/assets/18f18f76-7c18-4d6e-9f32-ce0f989a480b" />
 
 > Distribuzione spaziale della chlorophyll-a nel 2000, 2012 e 2024.
 
 ### 5.3. Kd490
 
+<details>
+<summary><b>Mostra il codice R</b></summary>
+  
 ```r
 kd490_limits <- range(
   terra::minmax(kd490_2000_crop),
@@ -269,7 +333,36 @@ p_kd490_2000 <- plot_indicator(
   legend_title = "Kd490 (m⁻¹)",
   limits = kd490_limits
 )
+
+p_kd490_2024 <- plot_indicator(
+  kd490_2024_crop,
+  boundary,
+  title = "2024",
+  legend_title = "Kd490 (m⁻¹)",
+  limits = kd490_limits
+)
+
+p_kd490_all <- wrap_plots(
+  p_kd490_2000,
+  p_kd490_2012,
+  p_kd490_2024,
+  ncol = 3,
+  guides = "collect"
+)+
+  plot_annotation(
+    title = "Spatial distribution of kd490"
+  ) &
+  theme(
+    legend.position = "right",
+    plot.title = element_text(
+      hjust = 0.5,
+      face = "bold"
+    )
+  )
+p_kd490_all
+
 ```
+</details>
 
 <img width="1280" height="709" alt="p_kd490_all" src="https://github.com/user-attachments/assets/38ea7b47-8a90-4607-b05f-76ef8d739780" />
 
@@ -280,21 +373,59 @@ p_kd490_2000 <- plot_indicator(
 
 ## 6. Statistiche descrittive 📊
 
-Per ciascun raster sono state calcolate numerosità delle celle valide, media, mediana, deviazione standard, minimo e massimo:
+Per ciascun raster sono state calcolate numerosità delle celle valide, media, mediana, deviazione standard, minimo e massimo e sono stati uniti poi in una singola tabella riassuntiva:
 
 ```r
 make_stats <- function(raster, year, variable) {
   result <- summary_statistics(raster)
-  result$Year <- year
-  result$Variable <- variable
+  result$Year <- year # aggiunta della colonna Year
+  result$Variable <- variable # aggiunta colonna Variabile
 
-  result[, c(
+  result[, c( # restituisce il data frame con queste colonne e in questo ordine
     "Variable", "Year", "N",
     "Mean", "Median", "SD",
     "Minimum", "Maximum"
   )]
-}
+} 
 ```
+
+<details>
+<summary><b>Mostra il codice R</b></summary>
+  
+```r
+sst_stats <- rbind(
+  make_stats(sst_2000_crop, 2000, "SST"),
+  make_stats(sst_2012_crop, 2012, "SST"),
+  make_stats(sst_2024_crop, 2024, "SST")
+)
+
+sst_stats
+
+chl_stats <- rbind(
+  make_stats(chl_2000_crop, 2000, "Chlorophyll-a"),
+  make_stats(chl_2012_crop, 2012, "Chlorophyll-a"),
+  make_stats(chl_2024_crop, 2024, "Chlorophyll-a")
+)
+
+chl_stats
+
+kd490_stats <- rbind(
+  make_stats(kd490_2000_crop, 2000, "Kd490"),
+  make_stats(kd490_2012_crop, 2012, "Kd490"),
+  make_stats(kd490_2024_crop, 2024, "Kd490")
+)
+
+kd490_stats
+
+all_stats <- rbind(
+  sst_stats,
+  chl_stats,
+  kd490_stats
+)
+
+all_stats
+```
+</details>
 
 ### 6.1. Risultati
 
@@ -321,11 +452,11 @@ make_stats <- function(raster, year, variable) {
 La funzione `compare_years()` estrae i valori dai tre raster e li riunisce in un unico data frame. La funzione `plot_boxplot()` permette quindi di confrontarne la distribuzione:
 
 ```r
-sst_comparison <- compare_years(
+sst_comparison <- compare_years( 
   rasters = list(sst_2000_crop, sst_2012_crop, sst_2024_crop),
   years = c(2000, 2012, 2024),
   variable = "SST"
-)
+) # non calcola semplicemente una media per anno, ma conserva la distribuzione completa dei valori, necessaria per costruire il boxplot.
 
 p_sst_boxplot <- plot_boxplot(
   sst_comparison,

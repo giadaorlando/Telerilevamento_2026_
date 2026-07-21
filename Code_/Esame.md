@@ -533,6 +533,13 @@ $$
 {\text{Media}_{2000}} \times 100
 $$
 
+```r
+sst_percent_change <- calculate_percent_change(
+  old_value = sst_stats$Mean[sst_stats$Year == 2000],
+  new_value = sst_stats$Mean[sst_stats$Year == 2024]
+)
+```
+
 | Indicatore | Media 2000 | Media 2012 | Media 2024 | Differenza 2024–2000 | Variazione 2000–2024 |
 |---|---:|---:|---:|---:|---:|
 | SST | 26.606 °C | 26.514 °C | 27.138 °C | **+0.532 °C** | +2.00% |
@@ -551,7 +558,7 @@ p_mean_sst <- ggplot(
 ) +
   geom_line() +
   geom_point(size = 3) +
-  labs(
+  labs(  # per definire le etichette del grafico
     title = "Mean SST through time",
     x = "Year",
     y = "Mean SST (°C)"

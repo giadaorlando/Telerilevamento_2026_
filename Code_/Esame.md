@@ -393,7 +393,7 @@ make_stats <- function(raster, year, variable) {
 <summary><b>Mostra il codice R</b></summary>
   
 ```r
-sst_stats <- rbind(
+sst_stats <- rbind( # funzione di R base
   make_stats(sst_2000_crop, 2000, "SST"),
   make_stats(sst_2012_crop, 2012, "SST"),
   make_stats(sst_2024_crop, 2024, "SST")

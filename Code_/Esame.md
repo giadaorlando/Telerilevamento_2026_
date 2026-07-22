@@ -476,8 +476,6 @@ La procedura è stata ripetuta per chlorophyll-a e Kd490.
 
 > Confronto della distribuzione di SST, chlorophyll-a e Kd490 nei tre anni selezionati.
 
-I boxplot devono essere interpretati come una descrizione della distribuzione spaziale delle celle raster. Le celle vicine non costituiscono repliche statisticamente indipendenti, perché i dati spaziali possono essere autocorrelati.
-
 ---
 
 ## 8. Variazioni spaziali tra 2000 e 2024 🔄
